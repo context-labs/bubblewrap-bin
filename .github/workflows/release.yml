@@ -15,8 +15,8 @@ concurrency:
 
 env:
   PYTHON_VERSION: "3.12"
-  # Upstream bwrap version is stored in bubblewrap-bin/VENDORED_BWRAP_VERSION
-  # (single source of truth read by both the build script and the bump step).
+  # Upstream bwrap version is stored in VENDORED_BWRAP_VERSION (single source
+  # of truth read by both the build script and the bump step).
   # The SHA stays here because it is paired with the version pin and only
   # needs to change when VENDORED_BWRAP_VERSION changes.
   BWRAP_SHA256: "988fd6b232dafa04b8b8198723efeaccdb3c6aa9c1c7936219d5791a8b7a8646"
@@ -79,8 +79,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: bubblewrap-bin-release-manifests
-          path: |
-            bubblewrap-bin/pyproject.toml
+          path: pyproject.toml
           retention-days: 1
 
   build-linux-wheel:
@@ -113,7 +112,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: bubblewrap-bin-release-manifests
-          path: bubblewrap-bin/
 
       - name: Install C build dependencies
         # manylinux_2_28 is AlmaLinux 8-based; libcap headers come from
@@ -164,7 +162,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: bubblewrap-bin-wheel-${{ matrix.arch }}
-          path: bubblewrap-bin/dist/*.whl
+          path: dist/*.whl
           retention-days: 14
 
   build-sdist:
@@ -179,7 +177,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: bubblewrap-bin-release-manifests
-          path: bubblewrap-bin/
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -196,7 +193,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: bubblewrap-bin-sdist
-          path: bubblewrap-bin/dist/*.tar.gz
+          path: dist/*.tar.gz
           retention-days: 14
 
   publish:
@@ -224,7 +221,7 @@ jobs:
       - name: Download all distributions
         uses: actions/download-artifact@v4
         with:
-          path: bubblewrap-bin/dist
+          path: dist
           pattern: bubblewrap-bin-*
           merge-multiple: true
 
@@ -256,7 +253,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: bubblewrap-bin-release-manifests
-          path: bubblewrap-bin/
 
       - name: Commit, tag, and push version bump
         env:
@@ -297,7 +293,7 @@ jobs:
           PUBLISH_RESULT: ${{ needs.publish.result }}
           TAG_PUSH_RESULT: ${{ needs.tag-and-push.result }}
         run: |
-          UPSTREAM_VERSION=$(cat bubblewrap-bin/VENDORED_BWRAP_VERSION)
+          UPSTREAM_VERSION=$(cat VENDORED_BWRAP_VERSION)
           {
             echo "## bubblewrap-bin Release Summary"
             echo ""

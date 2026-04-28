@@ -3,14 +3,8 @@ name: "[bubblewrap-bin] Checks"
 on:
   pull_request:
     branches: [main]
-    paths:
-      - "bubblewrap-bin/**"
-      - ".github/workflows/checks.yml"
   push:
     branches: [main]
-    paths:
-      - "bubblewrap-bin/**"
-      - ".github/workflows/checks.yml"
   workflow_call:
 
 concurrency:
