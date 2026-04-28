@@ -1,21 +1,18 @@
-MIT License
+bubblewrap-bin packages the upstream "bubblewrap" project as a Python wheel.
+The bundled `bwrap` binary is built from upstream sources and is licensed
+under the GNU Lesser General Public License, version 2.0 or any later
+version (LGPL-2.0-or-later).
 
-Copyright (c) 2026 inference.net
+The full LGPL-2.0 license text is available at:
+  https://www.gnu.org/licenses/old-licenses/lgpl-2.0.html
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Upstream project: https://github.com/containers/bubblewrap
+Upstream license: LGPL-2.0-or-later (see upstream COPYING file).
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The Python wrapper code in this package (under bubblewrap_bin/) is also
+released under LGPL-2.0-or-later to match upstream.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Per LGPL section 6, the corresponding source for the bundled binary is
+the upstream bubblewrap release whose version is recorded in
+VENDORED_BWRAP_VERSION at the root of this distribution. That release is
+publicly available from the upstream repository.
