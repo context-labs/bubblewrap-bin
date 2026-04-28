@@ -27,9 +27,6 @@ jobs:
   unit-tests:
     name: Unit Tests
     runs-on: depot-ubuntu-latest
-    defaults:
-      run:
-        working-directory: bubblewrap-bin
 
     steps:
       - name: Checkout code

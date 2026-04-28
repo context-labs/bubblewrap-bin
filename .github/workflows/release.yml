@@ -38,9 +38,6 @@ jobs:
     runs-on: depot-ubuntu-latest
     outputs:
       new_version: ${{ steps.bump.outputs.new_version }}
-    defaults:
-      run:
-        working-directory: bubblewrap-bin
     steps:
       - uses: actions/checkout@v4
 
@@ -110,9 +107,6 @@ jobs:
             runner: depot-ubuntu-latest-arm
             container_image: quay.io/pypa/manylinux_2_28_aarch64
             wheel_platform: manylinux_2_28_aarch64
-    defaults:
-      run:
-        working-directory: bubblewrap-bin
 
     steps:
       - uses: actions/checkout@v4
@@ -179,9 +173,6 @@ jobs:
     name: Build sdist
     needs: [bump-version]
     runs-on: depot-ubuntu-latest
-    defaults:
-      run:
-        working-directory: bubblewrap-bin
 
     steps:
       - uses: actions/checkout@v4
@@ -221,11 +212,8 @@ jobs:
       contents: read
       id-token: write
     environment:
-      name: pypi-bubblewrap-bin
+      name: pypi
       url: https://pypi.org/project/bubblewrap-bin/${{ needs.bump-version.outputs.new_version }}/
-    defaults:
-      run:
-        working-directory: bubblewrap-bin
     steps:
       - uses: actions/checkout@v4
 
@@ -255,9 +243,6 @@ jobs:
     permissions:
       contents: write
       id-token: write # Required for PyPI trusted publishing
-    defaults:
-      run:
-        working-directory: bubblewrap-bin
     steps:
       - name: Mint CI Bot token
         uses: actions/create-github-app-token@v1
