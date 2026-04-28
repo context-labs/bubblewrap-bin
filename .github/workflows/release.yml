@@ -22,11 +22,9 @@ env:
   BWRAP_SHA256: "988fd6b232dafa04b8b8198723efeaccdb3c6aa9c1c7936219d5791a8b7a8646"
   CI_BOT_GITHUB_APP_ID: "1281730"
 
-  INFISICAL_IDENTITY_ID: "dc1d9282-7640-471d-bc3e-926297a5ef85" # halo-github-ci
-
 permissions:
   contents: write # tag-and-push pushes the version commit + tag
-  id-token: write # Required for OIDC-based Infisical auth and PyPI trusted publishing
+  id-token: write # Required for PyPI trusted publishing
 
 jobs:
   checks:
@@ -258,27 +256,17 @@ jobs:
     runs-on: depot-ubuntu-latest
     permissions:
       contents: write
-      id-token: write # Required for OIDC-based Infisical auth
+      id-token: write # Required for PyPI trusted publishing
     defaults:
       run:
         working-directory: bubblewrap-bin
     steps:
-      - name: Load Infisical secrets
-        uses: Infisical/secrets-action@v1.0.15
-        with:
-          method: "oidc"
-          identity-id: ${{ env.INFISICAL_IDENTITY_ID }}
-          project-slug: "halo-0ys-z"
-          env-slug: "dev"
-          secret-path: "/ci"
-          include-imports: true
-
       - name: Mint CI Bot token
         uses: actions/create-github-app-token@v1
         id: app-token
         with:
           app-id: ${{ env.CI_BOT_GITHUB_APP_ID }}
-          private-key: ${{ env.CI_BOT_GITHUB_APP_PRIVATE_KEY }}
+          private-key: ${{ secrets.CI_BOT_GITHUB_APP_PRIVATE_KEY }}
 
       - uses: actions/checkout@v4
         with:
